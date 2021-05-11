@@ -1,0 +1,75 @@
+﻿<Window x:Class="ControlPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ControlPanel"
+        mc:Ignorable="d"
+        Title="Gaffe Tool" Width="310" WindowStyle="SingleBorderWindow" SizeToContent="Height" ResizeMode="CanMinimize" Topmost="True" Initialized="Window_Initialized">
+    <Grid Background="#FF575757">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="StatusLabel" Content="Success!" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Consolas" Panel.ZIndex="100" FontWeight="Bold" Background="DarkGreen" Foreground="White" FontSize="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+        <Rectangle Grid.Row="0" Fill="#FFBFC1C2" />
+        <TabControl Background="#FF6F91A7" HorizontalAlignment="Stretch" TabStripPlacement="Top">
+            <TabItem Header="Select Gaffe" FontFamily="Consolas" FontSize="12" FontWeight="Bold">
+                <Grid Margin="0,20,0,20" Background="#FF775D5D">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="GaffeDropDown" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="235" Height="35" FontSize="15" FontFamily="Consolas" VerticalContentAlignment="Center" Margin="0,10,0,0"/>
+                    <Button x:Name="GaffeButton" Grid.Row="1" Content="Set Gaffe" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="35" Click="GaffeButton_Click" FontSize="15" FontWeight="Bold" FontFamily="Consolas" Margin="0,0,0,10" IsEnabled="False"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Custom Gaffe" FontFamily="Consolas" FontWeight="Bold">
+                <Grid Margin="0,20,0,20" Background="#FF6C6482">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="CustomNumbersTextBox" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="235" Height="35" TextWrapping="Wrap" ToolTip="Enter Random Numbers" FontSize="15" FontFamily="Consolas" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="0,10,0,0"/>
+                    <Button x:Name="CustomNumbersButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="35" Content="Set Gaffe" Click="CustomNumbersButton_Click" FontSize="15" FontWeight="Bold" FontFamily="Consolas" Margin="0,0,0,10"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Gaffe Help" FontFamily="Consolas" FontSize="12" FontWeight="Bold">
+                <Grid Background="#FFB4B896">
+                    <ScrollViewer>
+                        <TextBlock x:Name="GaffeHelpTextBlock" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Initialized="GaffeHelpTextBlock_Initialized" Margin="5,5,5,5"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Header="ID" FontFamily="Consolas" FontSize="12" FontWeight="Bold">
+                <Grid Background="Wheat">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="IDTextBox" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="220" Height="40" Text="GameBackend" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Initialized="IDTextBox_Initialized" />
+                    <Button x:Name="IDUpdateButton" Content="Update" Grid.Row="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="100" Height="25" FontSize="15" Click="IDUpdateButton_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <Rectangle Grid.Row="1" Fill="#FF6F91A7" />
+        <Button x:Name="ClearNumbersButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="35" Content="Clear Gaffe" Click="ClearNumbersButton_Click" FontSize="15" FontFamily="Consolas" FontWeight="Bold"/>
+
+        <Grid x:Name="GameMenu" Grid.Row="2" Margin="0,15,0,10" Height="120">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="StartAppButton" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30" Content="Launch Game" Click="StartAppButton_Click" FontSize="15" FontFamily="Consolas" FontWeight="Bold"/>
+            <Button x:Name="ClearRAMButton" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30" Content="Clear RAM" Click="ClearRAMButton_Click" FontFamily="Consolas" FontSize="15" FontWeight="Bold"/>
+            <Button x:Name="CloseAppButton" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="30" Content="Close Game" Click="CloseAppButton_Click" FontFamily="Consolas" FontSize="15" FontWeight="Bold"/>
+        </Grid>
+    </Grid>
+</Window>

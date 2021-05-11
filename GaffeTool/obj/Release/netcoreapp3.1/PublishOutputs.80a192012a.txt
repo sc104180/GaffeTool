@@ -1,0 +1,8 @@
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\App.config
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\Gaffes.json
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.exe
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.dll
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.deps.json
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.runtimeconfig.json
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.dll.config
+D:\Helpers\ControlPanel\ControlPanel\bin\Release\netcoreapp3.1\publish\ControlPanel.pdb
