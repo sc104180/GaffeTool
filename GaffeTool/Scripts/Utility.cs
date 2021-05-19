@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Text.Json;
-using ControlPanel.Models;
+using GaffeTool.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ControlPanel
+namespace GaffeTool
 {
     public static class Utility
     {
@@ -39,42 +39,58 @@ namespace ControlPanel
 
         public static async Task<List<string>> GetGaffeNameList()
         {
-            using (var httpClient = new HttpClient())
+            try
             {
-                try
+                var gaffesJson = File.ReadAllText(ConfigurationManager.AppSettings.Get("GaffesPath"));
+                var gaffesJsonNameList = JsonSerializer.Deserialize<Gaffes>(gaffesJson).programs.Select(e => e.name).ToList();
+                if (gaffesJsonNameList.Count == 0) throw new Exception("no gaffe found!");
+                var gaffeNameList = new List<string>() { "--Select a Gaffe--" };
+                gaffeNameList.AddRange(gaffesJsonNameList);
+                var includedGaffes = File.ReadAllText(".gaffeinclude").Split("\n").Select(e => e.Trim()).ToList();
+                gaffeNameList.AddRange(includedGaffes);
+                var ignoredGaffes = File.ReadAllText(".gaffeignore").Split("\n").Select(e => e.Trim()).ToList();
+                gaffeNameList.RemoveAll(e => ignoredGaffes.Contains(e));
+                return gaffeNameList;
+            }
+            catch (Exception ex)
+            {
+                using (var httpClient = new HttpClient())
                 {
-                    StringContent content = new StringContent(CreateRequestBody.GetGaffes(), Encoding.UTF8, "application/json");
-                    var responseData = await httpClient.PostAsync(ConfigurationManager.AppSettings.Get("Url"), content);
-                    if (responseData.IsSuccessStatusCode)
+                    try
                     {
-                        string responseString = await responseData.Content.ReadAsStringAsync();
-                        var response = JsonSerializer.Deserialize<Response>(responseString);
-                        if (response.isSuccess)
+                        StringContent content = new StringContent(CreateRequestBody.GetGaffes(), Encoding.UTF8, "application/json");
+                        var responseData = await httpClient.PostAsync(ConfigurationManager.AppSettings.Get("Url"), content);
+                        if (responseData.IsSuccessStatusCode)
                         {
-                            var gaffeNameList = new List<string>() { "--Select a Gaffe--" };
-                            var responseNameList = response.value["gaffes"].Select(e => e.Replace("\"", "")).ToList();
-                            gaffeNameList.AddRange(responseNameList);
-                            var includedGaffes = File.ReadAllText(".gaffeinclude").Split("\n").Select(e => e.Trim()).ToList();
-                            gaffeNameList.AddRange(includedGaffes);
-                            var ignoredGaffes = File.ReadAllText(".gaffeignore").Split("\n").Select(e => e.Trim()).ToList();
-                            gaffeNameList.RemoveAll(e => ignoredGaffes.Contains(e));
-                            return gaffeNameList;
+                            string responseString = await responseData.Content.ReadAsStringAsync();
+                            var response = JsonSerializer.Deserialize<Response>(responseString);
+                            if (response.isSuccess)
+                            {
+                                var gaffeNameList = new List<string>() { "--Select a Gaffe--" };
+                                var responseNameList = response.value["gaffes"].Select(e => e.Replace("\"", "")).ToList();
+                                gaffeNameList.AddRange(responseNameList);
+                                var includedGaffes = File.ReadAllText(".gaffeinclude").Split("\n").Select(e => e.Trim()).ToList();
+                                gaffeNameList.AddRange(includedGaffes);
+                                var ignoredGaffes = File.ReadAllText(".gaffeignore").Split("\n").Select(e => e.Trim()).ToList();
+                                gaffeNameList.RemoveAll(e => ignoredGaffes.Contains(e));
+                                return gaffeNameList;
+                            }
+                            else
+                            {
+                                return new List<string>() { "Something went wrong!" };
+                            }
                         }
                         else
                         {
-                            return new List<string>() { "Something went wrong!" };
+                            return new List<string>() { "Internal Server Error!" };
                         }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return new List<string>() { "Internal Server Error!" };
+                        return new List<string>() { "BackEnd not reachable!" };
                     }
                 }
-                catch (Exception)
-                {
-                    return new List<string>() { "BackEnd not reachable!" };
-                }
-            }            
+            }
         }
 
         public static string GetGaffeHelpText()

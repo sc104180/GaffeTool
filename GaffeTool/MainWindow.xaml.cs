@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Xml;
 
-namespace ControlPanel
+namespace GaffeTool
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

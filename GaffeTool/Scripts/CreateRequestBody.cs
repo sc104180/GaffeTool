@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Text.Json;
 using System.Linq;
 
-namespace ControlPanel
+namespace GaffeTool
 {
     public static class CreateRequestBody
     {

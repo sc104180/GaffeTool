@@ -1,9 +1,9 @@
-﻿<Window x:Class="ControlPanel.MainWindow"
+﻿<Window x:Class="GaffeTool.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ControlPanel"
+        xmlns:local="clr-namespace:GaffeTool"
         mc:Ignorable="d"
         Title="Gaffe Tool" Width="310" WindowStyle="SingleBorderWindow" SizeToContent="Height" ResizeMode="CanMinimize" Topmost="True" Initialized="Window_Initialized">
     <Grid Background="#FF575757">
